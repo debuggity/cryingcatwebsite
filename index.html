@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Floating Crying Cats with Rainbow Trail</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: black;
+    }
+  </style>
+</head>
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script>
+    const catCount = 10;
+    const cats = [];
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    const textureLoader = new THREE.TextureLoader();
+    const catTextures = [];
+    for (let i = 1; i <= catCount; i++) {
+      catTextures.push(textureLoader.load(`assets/cute/cute${i}.jpg`));
+    }
+
+    const catMaterial = new THREE.SpriteMaterial({ map: null });
+    for (let i = 0; i < catCount; i++) {
+      const material = catMaterial.clone();
+      material.map = catTextures[i];
+      const cat = new THREE.Sprite(material);
+      cat.scale.set(2, 2, 1);
+      cat.position.set(Math.random() * 20 - 10, Math.random() * 20 - 10, Math.random() * 20 - 10);
+      cat.userData.velocity = new THREE.Vector3(Math.random() * 0.02 - 0.01, Math.random() * 0.02 - 0.01, Math.random() * 0.02 - 0.01);
+      cats.push(cat);
+      scene.add(cat);
+    }
+
+    const rainGeometry = new THREE.Geometry();
+    for (let i = 0; i < 1000; i++) {
+      const vertex = new THREE.Vector3();
+      vertex.x = Math.random() * 200 - 100;
+      vertex.y = Math.random() * 200 - 100;
+      vertex.z = Math.random() * 200 - 100;
+      rainGeometry.vertices.push(vertex);
+    }
+
+    const rainMaterial = new THREE.PointsMaterial({
+      color: 0x888888,
+      size: 0.1,
+      transparent: true,
+      opacity: 0.5
+    });
+
+    const rain = new THREE.Points(rainGeometry, rainMaterial);
+    scene.add(rain);
+
+    camera.position.z = 50;
+
+    function animate() {
+      requestAnimationFrame(animate);
+
+      cats.forEach(cat => {
+        cat.position.add(cat.userData.velocity);
+
+        if (cat.position.x > 10 || cat.position.x < -10) cat.userData.velocity.x = -cat.userData.velocity.x;
+        if (cat.position.y > 10 || cat.position.y < -10) cat.userData.velocity.y = -cat.userData.velocity.y;
+        if (cat.position.z > 10 || cat.position.z < -10) cat.userData.velocity.z = -cat.userData.velocity.z;
+
+        const rainbowMaterial = new THREE.LineBasicMaterial({ color: Math.random() * 0xffffff });
+        const rainbowGeometry = new THREE.Geometry();
+        rainbowGeometry.vertices.push(cat.position.clone());
+        rainbowGeometry.vertices.push(cat.position.clone().add(cat.userData.velocity));
+        const rainbow = new THREE.Line(rainbowGeometry, rainbowMaterial);
+        scene.add(rainbow);
+
+        setTimeout(() => scene.remove(rainbow), 100);
+      });
+
+      rainGeometry.vertices.forEach(vertex => {
+        vertex.y -= 0.2;
+        if (vertex.y < -100) {
+          vertex.y = 100;
+        }
+      });
+
+      rainGeometry.verticesNeedUpdate = true;
+
+      renderer.render(scene, camera);
+    }
+
+    animate();
+  </script>
+</body>
+</html>
