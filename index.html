@@ -42,14 +42,15 @@
       scene.add(cat);
     }
 
-    const rainGeometry = new THREE.Geometry();
-    for (let i = 0; i < 1000; i++) {
-      const vertex = new THREE.Vector3();
-      vertex.x = Math.random() * 200 - 100;
-      vertex.y = Math.random() * 200 - 100;
-      vertex.z = Math.random() * 200 - 100;
-      rainGeometry.vertices.push(vertex);
+    const rainCount = 1000;
+    const rainGeometry = new THREE.BufferGeometry();
+    const rainPositions = new Float32Array(rainCount * 3);
+    for (let i = 0; i < rainCount; i++) {
+      rainPositions[i * 3] = Math.random() * 200 - 100;
+      rainPositions[i * 3 + 1] = Math.random() * 200 - 100;
+      rainPositions[i * 3 + 2] = Math.random() * 200 - 100;
     }
+    rainGeometry.setAttribute('position', new THREE.BufferAttribute(rainPositions, 3));
 
     const rainMaterial = new THREE.PointsMaterial({
       color: 0x888888,
@@ -74,23 +75,26 @@
         if (cat.position.z > 10 || cat.position.z < -10) cat.userData.velocity.z = -cat.userData.velocity.z;
 
         const rainbowMaterial = new THREE.LineBasicMaterial({ color: Math.random() * 0xffffff });
-        const rainbowGeometry = new THREE.Geometry();
-        rainbowGeometry.vertices.push(cat.position.clone());
-        rainbowGeometry.vertices.push(cat.position.clone().add(cat.userData.velocity));
+        const rainbowGeometry = new THREE.BufferGeometry();
+        const rainbowVertices = new Float32Array([
+          cat.position.x, cat.position.y, cat.position.z,
+          cat.position.x + cat.userData.velocity.x, cat.position.y + cat.userData.velocity.y, cat.position.z + cat.userData.velocity.z
+        ]);
+        rainbowGeometry.setAttribute('position', new THREE.BufferAttribute(rainbowVertices, 3));
         const rainbow = new THREE.Line(rainbowGeometry, rainbowMaterial);
         scene.add(rainbow);
 
         setTimeout(() => scene.remove(rainbow), 100);
       });
 
-      rainGeometry.vertices.forEach(vertex => {
-        vertex.y -= 0.2;
-        if (vertex.y < -100) {
-          vertex.y = 100;
+      const rainPositions = rainGeometry.attributes.position.array;
+      for (let i = 0; i < rainCount; i++) {
+        rainPositions[i * 3 + 1] -= 0.2;
+        if (rainPositions[i * 3 + 1] < -100) {
+          rainPositions[i * 3 + 1] = 100;
         }
-      });
-
-      rainGeometry.verticesNeedUpdate = true;
+      }
+      rainGeometry.attributes.position.needsUpdate = true;
 
       renderer.render(scene, camera);
     }
