@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.cdnfonts.com/css/charanga" rel="stylesheet">
+    <link rel="shortcut icon" href="./assets/old/3.png" type="image/x-icon">
+    <script src='https://terminal.jup.ag/main-v3.js' />
+    <title>Crying Cat</title>
+
+</head>
+<style>
+    body {
+        background: url(./assets/old/crycat.gif);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: 50%;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-family: 'charanga', sans-serif;
+        overflow: auto;
+    }
+    .flier {
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    .flier > * {
+        animation: fly 90s linear infinite;
+        pointer-events: none !important;
+        top: 0;
+        left: 0;
+        transform: translateX(-120%) translateY(-120%) rotateZ(0);
+        position: fixed;
+        animation-delay: 1s;
+        z-index: 1;
+    }
+
+    .flierr > * {
+        animation: fly 30s linear infinite;
+        pointer-events: none !important;
+        top: 0;
+        left: 0;
+        transform: translateX(-120%) translateY(-120%) rotateZ(0);
+        position: fixed;
+        animation-delay: 4s;
+        z-index: 1;
+    }
+
+    .flierrr > * {
+        animation: fly 50s linear infinite;
+        pointer-events: none !important;
+        top: 0;
+        left: 0;
+        transform: translateX(-10%) translateY(-120%) rotateZ(0);
+        position: fixed;
+        animation-delay: 6s;
+        z-index: 1;
+    }
+
+    .flierrrr > * {
+        animation: fly 60s linear infinite;
+        pointer-events: none !important;
+        top: 0;
+        left: 0;
+        width: 200px;
+        height: 200px;
+        transform: translateX(-120%) translateY(-120%) rotateZ(0);
+        position: fixed;
+        animation-delay: 1s;
+        z-index: 1;
+    }
+
+    .iflier > * {
+        animation: fly 50s linear infinite;
+        pointer-events: none !important;
+        top: 0;
+        left: 0;
+        transform: translateX(-120%) translateY(-120%) rotateZ(0);
+        position: fixed;
+        animation-delay: 4s;
+        z-index: 1;
+    }
+
+    .iflierr > * {
+        animation: fly 20s linear infinite;
+        pointer-events: none !important;
+        top: 0;
+        left: 0;
+        transform: translateX(-120%) translateY(-120%) rotateZ(0);
+        position: fixed;
+        animation-delay: 7s;
+        z-index: 1;
+    }
+
+    .iflierrr > * {
+        animation: fly 30s linear infinite;
+        pointer-events: none !important;
+        top: 0;
+        left: 0;
+        transform: translateX(-120%) translateY(-120%) rotateZ(0);
+        position: fixed;
+        animation-delay: 6s;
+        z-index: 1;
+    }
+
+    .iflierrrr > * {
+        animation: fly 80s linear infinite;
+        pointer-events: none !important;
+        top: 0;
+        left: 0;
+        width: 200px;
+        height: 200px;
+        transform: translateX(-120%) translateY(-120%) rotateZ(0);
+        position: fixed;
+        animation-delay: 10s;
+        z-index: 1;
+    }
+
+    .lflier > * {
+        animation: fly 14s linear infinite;
+        pointer-events: none !important;
+        top: 0;
+        left: 0;
+        transform: translateX(-120%) translateY(-120%) rotateZ(0);
+        position: fixed;
+        animation-delay: 5s;
+        z-index: 1;
+    }
+
+    .lflierr > * {
+        animation: fly 13s linear infinite;
+        pointer-events: none !important;
+        top: 0;
+        left: 0;
+        transform: translateX(-120%) translateY(-120%) rotateZ(0);
+        position: fixed;
+        animation-delay: 13s;
+        z-index: 1;
+    }
+
+    .lflierrr > * {
+        animation: fly 10s linear infinite;
+        pointer-events: none !important;
+        top: 0;
+        left: 0;
+        transform: translateX(-10%) translateY(-120%) rotateZ(0);
+        position: fixed;
+        animation-delay: 16s;
+        z-index: 1;
+    }
+
+    .lflierrrr > * {
+        animation: fly 10s linear infinite;
+        pointer-events: none !important;
+        top: 0;
+        left: 0;
+        width: 200px;
+        height: 200px;
+        transform: translateX(-120%) translateY(-120%) rotateZ(0);
+        position: fixed;
+        animation-delay: 14s;
+        z-index: 1;
+    }
+
+    .liflier > * {
+        animation: fly 90s linear infinite;
+        pointer-events: none !important;
+        top: 0;
+        left: 0;
+        transform: translateX(-120%) translateY(-120%) rotateZ(0);
+        position: fixed;
+        animation-delay: 13s;
+        z-index: 1;
+    }
+
+    .liflierr > * {
+        animation: fly 30s linear infinite;
+        pointer-events: none !important;
+        top: 0;
+        left: 0;
+        transform: translateX(-120%) translateY(-120%) rotateZ(0);
+        position: fixed;
+        animation-delay: 12s;
+        z-index: 1;
+    }
+
+    .liflierrr > * {
+        animation: fly 7s linear infinite;
+        pointer-events: none !important;
+        top: 0;
+        left: 0;
+        transform: translateX(-120%) translateY(-120%) rotateZ(0);
+        position: fixed;
+        animation-delay: 10s;
+        z-index: 1;
+    }
+
+    .liflierrrr > * {
+        animation: fly 80s linear infinite;
+        pointer-events: none !important;
+        top: 0;
+        left: 0;
+        width: 200px;
+        height: 200px;
+        transform: translateX(-120%) translateY(-120%) rotateZ(0);
+        position: fixed;
+        animation-delay: 10s;
+        z-index: 1;
+    }
+
+    @keyframes fly {
+        98.001%, 0% {
+            display: block;
+            transform: translateX(-200%) translateY(100vh) rotateZ(0deg);
+        }
+
+        15% {
+            transform: translateX(100vw) translateY(-100%) rotateZ(180deg);
+        }
+
+        15.001%, 18% {
+            transform: translateX(100vw) translateY(-30%) rotateZ(0deg);
+        }
+
+        40% {
+            transform: translateX(-200%) translateY(3vh) rotateZ(-180deg);
+        }
+
+        40.001%, 43% {
+            transform: translateX(-200%) translateY(-100%) rotateZ(-180deg);
+        }
+
+        65% {
+            transform: translateX(100vw) translateY(50vh) rotateZ(0deg);
+        }
+
+        65.001%, 68% {
+            transform: translateX(20vw) translateY(-200%) rotateZ(180deg);
+        }
+
+        95% {
+            transform: translateX(10vw) translateY(100vh) rotateZ(0deg);
+        }
+    }
+    
+    .kalia {
+        height: 30%;
+        width: auto;
+    }
+    
+    .socials {
+        height: 100px;
+        width: auto;
+        margin: 10px;
+        z-index: 10;
+    }
+    
+    .socrap {
+        display: flex;
+        width: 50vw;
+        margin: 10px 0;
+        align-items: center;
+        justify-content: space-around;
+        flex-direction: row;
+        padding: 0;
+        z-index: 10;
+    }
+    
+    .title {
+        width: 100vw;
+        height: auto;
+        text-align: center;
+        position: relative;
+        align-items: end;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        justify-content: center;
+        font-size: 60px;
+        letter-spacing: 3px;
+        z-index: 10;
+        margin: 0;
+    }
+
+    .video-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 10px 0;
+        z-index: 10;
+    }
+
+    .video-container video {
+        max-width: 100%;
+        border: none;
+    }
+</style>
+<style>
+    @keyframes shake {
+        0% {
+            transform: translate(0, 0);
+        }
+        10% {
+            transform: translate(-1px, 1px) rotate(-1deg);
+        }
+        20% {
+            transform: translate(1px, -1px) rotate(1deg);
+        }
+        30% {
+            transform: translate(-2px, 2px) rotate(-2deg);
+        }
+        40% {
+            transform: translate(2px, -2px) rotate(2deg);
+        }
+        50% {
+            transform: translate(-2px, -1px) rotate(-1deg);
+        }
+        60% {
+            transform: translate(2px, 1px) rotate(1deg);
+        }
+        70% {
+            transform: translate(-1px, -2px) rotate(-2deg);
+        }
+        80% {
+            transform: translate(1px, 2px) rotate(2deg);
+        }
+        90% {
+            transform: translate(0, 0);
+        }
+        100% {
+            transform: translate(0, 0);
+        }
+    }
+    
+    .bodzy { 
+        animation: shake 4s infinite, flash 1s infinite alternate !important;
+        max-width: 100vw !important;
+        z-index: 10;
+    }
+    
+    .bodeh { 
+        animation: shake 7s infinite, flash 1s infinite alternate !important;
+        max-width: 100vw !important;
+        z-index: 10;
+    }
+    
+    .bod { 
+        animation: shake 1ms infinite, flash 1s infinite alternate !important;
+        max-width: 100vw !important;
+        z-index: 10;
+    }
+    
+    .logo {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 300px;
+        width: auto;
+        z-index: 10;
+    }
+
+    .socrap {
+        display: flex;
+        width: 50vw;
+        margin: auto;
+        align-items: center;
+        justify-content: space-around;
+        flex-direction: row;
+        padding-bottom: 4rem;
+        z-index: 10;
+        height: auto;
+    }
+
+    .ca-code-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        z-index: 10;
+        padding: 4px;
+        background-color: rgba(0, 0, 0, 0.8);
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-right: 20px;
+        max-width: 80px;
+    }
+
+    .ca-code-container, .socials {
+        width: 100px; /* Fixed width for all buttons */
+        height: auto; /* Fixed height for all buttons */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .ca-code-container button {
+        padding: 10px 20px;
+        font-family: 'charanga', sans-serif;
+        font-size: 18px;
+        cursor: pointer;
+        border: none;
+        border-radius: 5px;
+        background-color: #93e8ff;
+        color: black;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.3s, transform 0.3s;
+        max-width: 79px;
+    }
+
+    .ca-code-container button:hover {
+        background-color: #93e8ff;
+        transform: scale(1.05);
+    }
+
+    .ca-code-container button.copied {
+        background-color: #93e8ff;
+    }
+
+    .checkmark {
+        display: none;
+        margin-left: 10px;
+    }
+
+    .checkmark.show {
+        display: inline-block;
+    }
+
+    @media (max-width: 768px) {
+        .ca-code-container button {
+            padding: 8px 16px;
+            font-size: 16px;
+        }
+
+        .socrap {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .socials {
+            height: 80px;
+            margin: 30px;
+        }
+
+        .title {
+            font-size: 40px;
+            padding-top: 20vh;
+            margin-top: auto;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .ca-code-container button {
+            padding: 6px 12px;
+            font-size: 14px;
+        }
+
+        .socrap {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .socials {
+            height: 40px;
+            margin: 20px;
+        }
+
+        .title {
+            font-size: 30px;
+            padding-top: 3vh;
+        }
+    }
+</style>
+<body>
+    <div class="flier"><img class="kalia" src="./assets/old/cry.png" alt=""></div>
+    <div class="flierr"><img class="kalia" src="./assets/old/haha.jpg" alt=""></div>
+    <div class="flierrr"><img class="kalia" src="./assets/old/pngegg.png" alt=""></div>
+    <div class="flierrrr"><img class="kalia" src="./assets/old/wui.gif" alt=""></div>
+    <div class="iflier"><img class="kalia" src="./assets/old/1.png" alt=""></div>
+    <div class="iflierr"><img class="kalia" src="./assets/old/2.png" alt=""></div>
+    <div class="iflierrr"><img class="kalia" src="./assets/old/3.png" alt=""></div>
+    <div class="iflierrrr"><img class="kalia" src="./assets/old/4.png" alt=""></div>
+    <div class="lflier"><img class="kalia" src="./assets/old/cry.png" alt=""></div>
+    <div class="lflierr"><img class="kalia" src="./assets/old/haha.jpg" alt=""></div>
+    <div class="lflierrr"><img class="kalia" src="./assets/old/pngegg.png" alt=""></div>
+    <div class="lflierrrr"><img class="kalia" src="./assets/old/wui.gif" alt=""></div>
+    <div class="liflier"><img class="kalia" src="./assets/old/1.png" alt=""></div>
+    <div class="liflierr"><img class="kalia" src="./assets/old/2.png" alt=""></div>
+    <div class="liflierrr"><img class="kalia" src="./assets/old/3.png" alt=""></div>
+    <div class="liflierrrr"><img class="kalia" src="./assets/old/4.png" alt=""></div>
+    <section class="bodzy">
+        <div class="title bodeh">
+            <h1>CRYING CAT</h1>
+        </div>
+        <div class="video-container">
+            <video src="./assets/cute/movie.mp4" autoplay loop muted></video>
+        </div>
+        <div class="socrap bodeh">
+            <div class="ca-code-container">
+                <button onclick="copyToClipboard()" id="copyButton">Copy CA Code</button>
+            </div>
+            <a href="https://t.me/cryingcat_sol"><img class="socials bodzy" src="./assets/old/tg.png" alt=""></a>
+            <a href="https://x.com/cryingcat_sol"><img class="socials bodzy" src="./assets/old/x.png" alt=""></a>
+        </div>
+    </section>
+
+    <div id="integrated-terminal">
+        <script>
+            window.Jupiter.init({
+            displayMode: "integrated",
+            integratedTargetId: "integrated-terminal",
+            endpoint: "https://ultra-quaint-mansion.solana-mainnet.quiknode.pro/02d84e0a95a7a01dba1f300cdc7663d763de02fd/",
+            strictTokenList: false,
+            defaultExplorer: "Solscan",
+            formProps: {
+                fixedOutputMint: true,
+                swapMode: "ExactIn",
+                initialAmount: "1000",
+                initialOutputMint: "2ZHYWGndLx76H7NCN4ieMRHSRAAiiWEtJFpHmmXYmE6Z",
+                initialSlippageBps: 5,
+            },
+            });
+        </script>
+    </div>
+
+    <style>#dexscreener-embed{position:relative;width:80%;padding-bottom:125%; z-index: 10;}@media(min-width:1400px){#dexscreener-embed{padding-bottom:65%;}}#dexscreener-embed iframe{position:absolute;width:100%;height:100%;top:0;left:0;border:0;}</style><div id="dexscreener-embed"><iframe src="https://dexscreener.com/solana/DtPVBsA9wXGehhTB2xZ678uGKNg6LbVM6NDBRTq8JbPH?embed=1&theme=dark"></iframe></div>
+</body>
+<script>
+    function copyToClipboard() {
+        var caCode = "2ZHYWGndLx76H7NCN4ieMRHSRAAiiWEtJFpHmmXYmE6Z";
+        var textarea = document.createElement("textarea");
+        textarea.value = caCode;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textarea);
+
+        var copyButton = document.getElementById("copyButton");
+        var checkmark = document.createElement("span");
+
+        // Create checkmark if it doesn't exist
+        if (!document.querySelector('.checkmark')) {
+            checkmark.className = "checkmark show";
+            checkmark.innerHTML = "✔";
+            copyButton.appendChild(checkmark);
+        } else {
+            document.querySelector('.checkmark').classList.add('show');
+        }
+
+        // Change button appearance
+        copyButton.classList.add('copied');
+
+        // Reset button appearance after a delay
+        setTimeout(function() {
+            copyButton.classList.remove('copied');
+            document.querySelector('.checkmark').classList.remove('show');
+        }, 2000);
+    }
+</script>
+</html>
