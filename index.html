@@ -11,9 +11,9 @@
 <style>
     body {
         background: url(./assets/old/crycat.gif);
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: 50%;
+        background-size: contain;
+        background-repeat: repeat-y;
+        background-position: center top; /* Change made here */
         min-height: 100vh;
         display: flex;
         flex-direction: column;
@@ -22,6 +22,7 @@
         font-family: 'charanga', sans-serif;
         overflow: auto;
     }
+
     .flier {
         pointer-events: none;
         z-index: 1;
@@ -459,6 +460,7 @@
             padding-top: 20vh;
             margin-top: auto;
         }
+
     }
 
     @media (max-width: 480px) {
@@ -466,11 +468,6 @@
         .title {
             font-size: 30px;
             padding-top: 3vh;
-        }
-
-        .youtube-iframe {
-            width: 470;
-            height: 264;
         }
 
     }
