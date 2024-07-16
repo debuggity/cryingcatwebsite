@@ -654,21 +654,22 @@
 
     function shuffleMeme() {
         const memes = [
-            "./assets/memes/meme1.jpg","./assets/memes/meme2.jpg","./assets/memes/meme3.jpg",
-            "./assets/memes/meme4.jpg","./assets/memes/meme5.jpg","./assets/memes/meme6.jpg",
-            "./assets/memes/meme7.jpg","./assets/memes/meme8.jpg","./assets/memes/meme9.jpg","./assets/memes/meme10.jpg","./assets/memes/meme11.jpg",
-            "./assets/memes/meme12.jpg","./assets/memes/meme13.jpg","./assets/memes/meme14.jpg","./assets/memes/meme15.jpg",
+            "./assets/memes/meme1.jpg", "./assets/memes/meme2.jpg", "./assets/memes/meme3.jpg",
+            "./assets/memes/meme4.jpg", "./assets/memes/meme5.jpg", "./assets/memes/meme6.jpg",
+            "./assets/memes/meme7.jpg", "./assets/memes/meme8.jpg", "./assets/memes/meme9.jpg", "./assets/memes/meme10.jpg", "./assets/memes/meme11.jpg",
+            "./assets/memes/meme12.jpg", "./assets/memes/meme13.jpg", "./assets/memes/meme14.jpg", "./assets/memes/meme15.jpg",
             "./assets/memes/stonks.jpg",
-            "./assets/cute/cute1.jpg","./assets/cute/cute2.jpg","./assets/cute/cute3.jpg",
-            "./assets/cute/cute4.jpg","./assets/cute/cute5.jpg","./assets/cute/cute6.jpg",
-            "./assets/cute/cute7.jpg","./assets/cute/cute8.jpg","./assets/cute/cute9.jpg",
-            "./assets/cute/cute10.jpg","./assets/cute/cute11.jpg","./assets/cute/cute12.jpg",
-            "./assets/cute/cute13.jpg","./assets/cute/cute14.jpg","./assets/cute/cute15.jpg",
-            "./assets/cute/cute16.jpg","./assets/cute/matrix.jpg", "./assets/cute/potato.jpg", "./assets/cute/classic.jpg"
+            "./assets/cute/cute1.jpg", "./assets/cute/cute2.jpg", "./assets/cute/cute3.jpg",
+            "./assets/cute/cute4.jpg", "./assets/cute/cute5.jpg", "./assets/cute/cute6.jpg",
+            "./assets/cute/cute7.jpg", "./assets/cute/cute8.jpg", "./assets/cute/cute9.jpg",
+            "./assets/cute/cute10.jpg", "./assets/cute/cute11.jpg", "./assets/cute/cute12.jpg",
+            "./assets/cute/cute13.jpg", "./assets/cute/cute14.jpg", "./assets/cute/cute15.jpg",
+            "./assets/cute/cute16.jpg", "./assets/cute/matrix.jpg", "./assets/cute/potato.jpg", "./assets/cute/classic.jpg"
         ];
         const randomMeme = memes[Math.floor(Math.random() * memes.length)];
+        const fullUrl = window.location.origin + "/" + randomMeme; // Construct the full URL
         document.getElementById("memeImage").src = randomMeme;
-        updateSocialMediaLinks(randomMeme);
+        updateSocialMediaLinks(fullUrl);
     }
 
     function updateSocialMediaLinks(imageSrc) {
@@ -676,6 +677,7 @@
         const twitterShareLink = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}&url=${encodeURIComponent(imageSrc)}`;
         document.getElementById("twitterShare").href = twitterShareLink;
     }
+
 
 
 </script>
