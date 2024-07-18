@@ -537,11 +537,43 @@
     .meme-title h2 {
         position: relative;
         color: #fff;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add slight shadow */
         font-size: 40px;
     }
 
+    .tweets-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 40px 0; /* Add spacing between sections */
+        z-index: 10;
+        width: 100%;
+    }
 
+    .tweet-display {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        max-width: 600px;
+    }
+
+    #shuffleTweetButton {
+        padding: 10px 20px;
+        font-family: 'charanga', sans-serif;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        border: none;
+        border-radius: 5px;
+        background-color: #77d2ff;
+        color: black;
+        transition: background-color 0.3s, transform 0.3s;
+    }
+
+    #shuffleTweetButton:hover {
+        background-color: #66b6e6;
+        transform: scale(1.05);
+    }
 
     @media (max-width: 768px) {
 
@@ -606,13 +638,21 @@
         </div>
         <div class="buttons-container">
             <button onclick="shuffleMeme()" id="shuffleButton">Shuffle Meme</button>
-            <div class="share-buttons">
-                <a href="#" id="twitterShare" target="_blank"><img src="./assets/old/x-share-button-icon.png" alt="X (Twitter)"></a>
-            </div>
         </div>
     </section>
-    
 
+    <section class="tweets-container">
+        <div class="title meme-title">
+            <h2>Community Reactions</h2>
+        </div>
+        <div id="tweetDisplay" class="tweet-display">
+            <!-- Tweet will be dynamically inserted here -->
+        </div>
+        <div class="buttons-container">
+            <button onclick="shuffleTweet()" id="shuffleTweetButton">Shuffle Tweet</button>
+        </div>
+    </section>   
+    
     <div class="title meme-title">
         <h2>We're crying of cuteness!</h2>
     </div>
@@ -620,7 +660,47 @@
 
     <style>#dexscreener-embed{position:relative;width:90%;padding-bottom:125%; z-index: 10;}@media(min-width:1400px){#dexscreener-embed{padding-bottom:65%;}}#dexscreener-embed iframe{position:absolute;width:100%;height:100%;top:0;left:0;border:0;}</style><div id="dexscreener-embed"><iframe src="https://dexscreener.com/solana/DtPVBsA9wXGehhTB2xZ678uGKNg6LbVM6NDBRTq8JbPH?embed=1&theme=dark&trades=0"></iframe></div>
 </body>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 <script>
+    const tweets = [
+        '<blockquote class="twitter-tweet"><p lang="und" dir="ltr">Why <a href="https://t.co/UwUBAILsuc">pic.twitter.com/UwUBAILsuc</a></p>&mdash; Larp von Trier (@LarpVonTrier) <a href="https://twitter.com/LarpVonTrier/status/1813764125455192115?ref_src=twsrc%5Etfw">July 18, 2024</a></blockquote>',
+        '<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Which Crying Cat would you invite to the cabal? <br><br>You can only pick one. <br><br>- <a href="https://twitter.com/search?q=%24Crying&amp;src=ctag&amp;ref_src=twsrc%5Etfw">$Crying</a> Cat <br><br>Ca:<br>2ZHYWGndLx76H7NCN4ieMRHSRAAiiWEtJFpHmmXYmE6Z <a href="https://t.co/2zrisoe5BD">pic.twitter.com/2zrisoe5BD</a></p>&mdash; Crying Cat Solana (@CryingCat_sol) <a href="https://twitter.com/CryingCat_sol/status/1813959127976247687?ref_src=twsrc%5Etfw">July 18, 2024</a></blockquote>',
+        '<blockquote class="twitter-tweet"><p lang="en" dir="ltr">I’m not addicted to gambling, it’s simply my autistic special interest.<br><br>- <a href="https://twitter.com/search?q=%24Crying&amp;src=ctag&amp;ref_src=twsrc%5Etfw">$Crying</a> Cat <br><br>2ZHYWGndLx76H7NCN4ieMRHSRAAiiWEtJFpHmmXYmE6Z <a href="https://t.co/UEGGEg8GqR">pic.twitter.com/UEGGEg8GqR</a></p>&mdash; Crying Cat Solana (@CryingCat_sol) <a href="https://twitter.com/CryingCat_sol/status/1809154770088669489?ref_src=twsrc%5Etfw">July 5, 2024</a></blockquote>',
+        '<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Jobs not finished, I’m still poor. <br><br>- <a href="https://twitter.com/search?q=%24Crying&amp;src=ctag&amp;ref_src=twsrc%5Etfw">$Crying</a> Cat <a href="https://t.co/582cddbSob">pic.twitter.com/582cddbSob</a></p>&mdash; Crying Cat Solana (@CryingCat_sol) <a href="https://twitter.com/CryingCat_sol/status/1809115475906838530?ref_src=twsrc%5Etfw">July 5, 2024</a></blockquote>',
+        '<blockquote class="twitter-tweet"><p lang="en" dir="ltr">I’m aware that I’m looking fly today, <br><br>But I still want to die. <br><br>- <a href="https://twitter.com/search?q=%24Crying&amp;src=ctag&amp;ref_src=twsrc%5Etfw">$Crying</a> Cat <br><br>2ZHYWGndLx76H7NCN4ieMRHSRAAiiWEtJFpHmmXYmE6Z <a href="https://t.co/CpGTdOQBDr">pic.twitter.com/CpGTdOQBDr</a></p>&mdash; Crying Cat Solana (@CryingCat_sol) <a href="https://twitter.com/CryingCat_sol/status/1810320879093751976?ref_src=twsrc%5Etfw">July 8, 2024</a></blockquote>',
+        '<blockquote class="twitter-tweet"><p lang="en" dir="ltr">I’m still the most emotionally in touch cat on the blockchain. <br><br>- <a href="https://twitter.com/search?q=%24Crying&amp;src=ctag&amp;ref_src=twsrc%5Etfw">$Crying</a> Cat <br><br>2ZHYWGndLx76H7NCN4ieMRHSRAAiiWEtJFpHmmXYmE6Z <a href="https://t.co/LELyXq1QvT">pic.twitter.com/LELyXq1QvT</a></p>&mdash; Crying Cat Solana (@CryingCat_sol) <a href="https://twitter.com/CryingCat_sol/status/1810412543787319525?ref_src=twsrc%5Etfw">July 8, 2024</a></blockquote>',
+        '<blockquote class="twitter-tweet"><p lang="en" dir="ltr">I don’t pay my taxes because I’m a cat. <br><br>- <a href="https://twitter.com/search?q=%24Crying&amp;src=ctag&amp;ref_src=twsrc%5Etfw">$Crying</a> Cat <a href="https://t.co/obH9TojCNm">pic.twitter.com/obH9TojCNm</a></p>&mdash; Crying Cat Solana (@CryingCat_sol) <a href="https://twitter.com/CryingCat_sol/status/1808484765705629837?ref_src=twsrc%5Etfw">July 3, 2024</a></blockquote>',
+        '<blockquote class="twitter-tweet"><p lang="nl" dir="ltr">I’m an expert in my field. <br><br>- <a href="https://twitter.com/search?q=%24Crying&amp;src=ctag&amp;ref_src=twsrc%5Etfw">$Crying</a> Cat<br><br>Ca:<br><br>2ZHYWGndLx76H7NCN4ieMRHSRAAiiWEtJFpHmmXYmE6Z <a href="https://t.co/epemVNLwJf">pic.twitter.com/epemVNLwJf</a></p>&mdash; Crying Cat Solana (@CryingCat_sol) <a href="https://twitter.com/CryingCat_sol/status/1807169055255830552?ref_src=twsrc%5Etfw">June 29, 2024</a></blockquote>',
+        '<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Woke up, had a cry and now I’m ready to fly. <br><br>- <a href="https://twitter.com/search?q=%24Crying&amp;src=ctag&amp;ref_src=twsrc%5Etfw">$Crying</a> Cat <br><br>2ZHYWGndLx76H7NCN4ieMRHSRAAiiWEtJFpHmmXYmE6Z <a href="https://t.co/iVrLLjbHod">pic.twitter.com/iVrLLjbHod</a></p>&mdash; Crying Cat Solana (@CryingCat_sol) <a href="https://twitter.com/CryingCat_sol/status/1806594535130124312?ref_src=twsrc%5Etfw">June 28, 2024</a></blockquote>',
+        '<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Jobs not finished, <br><br>I’m still crying uncontrollably. <br><br>- <a href="https://twitter.com/search?q=%24Crying&amp;src=ctag&amp;ref_src=twsrc%5Etfw">$Crying</a> Cat <br><br>2ZHYWGndLx76H7NCN4ieMRHSRAAiiWEtJFpHmmXYmE6Z <a href="https://t.co/d71x58wTq7">pic.twitter.com/d71x58wTq7</a></p>&mdash; Crying Cat Solana (@CryingCat_sol) <a href="https://twitter.com/CryingCat_sol/status/1805209850902679745?ref_src=twsrc%5Etfw">June 24, 2024</a></blockquote>',
+        '<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Have the current market conditions left you crying? <br><br>If so, there’s always spaces for new criers in my community of sad cats. <br><br>Stop by and shed some tears with us while we wait for better days to arrive. <br><br>- <a href="https://twitter.com/search?q=%24Crying&amp;src=ctag&amp;ref_src=twsrc%5Etfw">$Crying</a> Cat <a href="https://t.co/cov0eE5EMW">https://t.co/cov0eE5EMW</a>… <a href="https://t.co/exUpPEPzdL">pic.twitter.com/exUpPEPzdL</a></p>&mdash; Crying Cat Solana (@CryingCat_sol) <a href="https://twitter.com/CryingCat_sol/status/1800848981217382801?ref_src=twsrc%5Etfw">June 12, 2024</a></blockquote>',
+        '<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Gm, <br><br>Can someone tell God to stop making me wake up. <br><br>Thanks. <br><br>- <a href="https://twitter.com/search?q=%24Crying&amp;src=ctag&amp;ref_src=twsrc%5Etfw">$Crying</a> Cat <a href="https://t.co/D5hMsBriGM">pic.twitter.com/D5hMsBriGM</a></p>&mdash; Crying Cat Solana (@CryingCat_sol) <a href="https://twitter.com/CryingCat_sol/status/1799011344068628484?ref_src=twsrc%5Etfw">June 7, 2024</a></blockquote>',
+        '<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Gm, <br><br>Looking fly, ready to cry. <br><br>- <a href="https://twitter.com/search?q=%24Crying&amp;src=ctag&amp;ref_src=twsrc%5Etfw">$Crying</a> Cat <a href="https://t.co/JCpfNg3rR4">pic.twitter.com/JCpfNg3rR4</a></p>&mdash; Crying Cat Solana (@CryingCat_sol) <a href="https://twitter.com/CryingCat_sol/status/1797219456189338024?ref_src=twsrc%5Etfw">June 2, 2024</a></blockquote>',
+        '<blockquote class="twitter-tweet"><p lang="en" dir="ltr">My moments and experiences have been horrific, I’ll take the money please.<br><br>- <a href="https://twitter.com/search?q=%24Crying&amp;src=ctag&amp;ref_src=twsrc%5Etfw">$Crying</a> Cat <a href="https://t.co/BSUzc8fTeC">pic.twitter.com/BSUzc8fTeC</a></p>&mdash; Crying Cat Solana (@CryingCat_sol) <a href="https://twitter.com/CryingCat_sol/status/1793744542665232446?ref_src=twsrc%5Etfw">May 23, 2024</a></blockquote>',
+        '<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Gm, <br><br>My mentor says that once I get over my; insomnia, depression and poor eating habits I may finally have a positive P’n’L.<br><br>- <a href="https://twitter.com/search?q=%24Crying&amp;src=ctag&amp;ref_src=twsrc%5Etfw">$Crying</a> Cat <a href="https://t.co/UDaBVjWoJp">pic.twitter.com/UDaBVjWoJp</a></p>&mdash; Crying Cat Solana (@CryingCat_sol) <a href="https://twitter.com/CryingCat_sol/status/1792839758173139142?ref_src=twsrc%5Etfw">May 21, 2024</a></blockquote>',
+        '<blockquote class="twitter-tweet"><p lang="en" dir="ltr">I asked for rhythm,<br><br>But god gave me ‘tism.<br><br>- <a href="https://twitter.com/search?q=%24Crying&amp;src=ctag&amp;ref_src=twsrc%5Etfw">$Crying</a> Cat <a href="https://t.co/66Ii6VLyD8">pic.twitter.com/66Ii6VLyD8</a></p>&mdash; Crying Cat Solana (@CryingCat_sol) <a href="https://twitter.com/CryingCat_sol/status/1790467980364493305?ref_src=twsrc%5Etfw">May 14, 2024</a></blockquote>',
+        '<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Literally me everytime i check Crying Cat chart <a href="https://t.co/OnXJMQrCkT">pic.twitter.com/OnXJMQrCkT</a></p>&mdash; Larp von Trier (@LarpVonTrier) <a href="https://twitter.com/LarpVonTrier/status/1769238742340915357?ref_src=twsrc%5Etfw">March 17, 2024</a></blockquote>',
+        '<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Meanwhile crying cat: <a href="https://t.co/O4gdgsARfx">https://t.co/O4gdgsARfx</a> <a href="https://t.co/l1NP2vn3D9">pic.twitter.com/l1NP2vn3D9</a></p>&mdash; Larp von Trier (@LarpVonTrier) <a href="https://twitter.com/LarpVonTrier/status/1768454223950147984?ref_src=twsrc%5Etfw">March 15, 2024</a></blockquote>',
+        '<blockquote class="twitter-tweet"><p lang="en" dir="ltr">If you sell Crying Cat this is who you are hurting <a href="https://t.co/NwxILVkPSY">pic.twitter.com/NwxILVkPSY</a></p>&mdash; Larp von Trier (@LarpVonTrier) <a href="https://twitter.com/LarpVonTrier/status/1763335198345961743?ref_src=twsrc%5Etfw">February 29, 2024</a></blockquote>',
+        '<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Crying Cat $1.6k MCap<br><br>Love this meme lmao i use it on a daily basis on whatsapp<br><br>If you want to have fun with me ca is 2ZHYWGndLx76H7NCN4ieMRHSRAAiiWEtJFpHmmXYmE6Z <a href="https://t.co/kVDkEl8uS7">pic.twitter.com/kVDkEl8uS7</a></p>&mdash; Larp von Trier (@LarpVonTrier) <a href="https://twitter.com/LarpVonTrier/status/1763322694819348548?ref_src=twsrc%5Etfw">February 29, 2024</a></blockquote>'
+    ];
+
+    function shuffleTweet() {
+        const randomTweet = tweets[Math.floor(Math.random() * tweets.length)];
+        const tweetDisplay = document.getElementById('tweetDisplay');
+        tweetDisplay.innerHTML = randomTweet;
+        twttr.widgets.load();
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        shuffleTweet(); // Load a tweet on page load
+    });
+</script>
+
+
+<script>
+
     function copyToClipboard() {
         var caCode = "2ZHYWGndLx76H7NCN4ieMRHSRAAiiWEtJFpHmmXYmE6Z";
         var textarea = document.createElement("textarea");
@@ -667,7 +747,7 @@
             "./assets/cute/cute16.jpg", "./assets/cute/matrix.jpg", "./assets/cute/potato.jpg", "./assets/cute/classic.jpg"
         ];
         const randomMeme = memes[Math.floor(Math.random() * memes.length)];
-        const fullUrl = window.location.origin + "/" + randomMeme; // Construct the full URL
+        const fullUrl = "https://github.com/debuggity/cryingcatwebsite/blob/main" + "/" + randomMeme + "?raw=true"; // Construct the full URL
         document.getElementById("memeImage").src = randomMeme;
         updateSocialMediaLinks(fullUrl);
     }
@@ -677,8 +757,6 @@
         const twitterShareLink = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}&url=${encodeURIComponent(imageSrc)}`;
         document.getElementById("twitterShare").href = twitterShareLink;
     }
-
-
 
 </script>
 </html>
